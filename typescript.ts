@@ -202,40 +202,68 @@ Utilizar map para crear un nuevo array catalogoConDescuento, donde cada producto
 Imprimir catalogoConDescuento en la consola.
 
 */
-dsd 
-/*
+const producto = [];
 
+const catalogoConDescuento = catalogo.map(producto => ({
+    nombre: producto.nombre,
+    precio: producto.precio * 0.9
+}));
+
+console.log(catalogoConDescuento);
+/*
+*//*
 Ejercicio 11: Búsqueda de Usuario - find
 Crear un array llamado usuarios con varios objetos de usuario. Cada usuario debe tener id (number), nombre (string) y activo (boolean).
 Usar find para buscar el usuario con el id 3. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find 
 Imprimir en la consola el objeto del usuario encontrado.
 
+*/
+const usuarios: {id: number, nombre: string, activo: boolean}[] = [
+    {id: 1, nombre: "Emanuel", activo: true},
+     {id: 2, nombre: "Lucia", activo: false},
+      {id: 3, nombre: "Marta", activo: true}];
 
+      const usuarioEncontrado = usuarios.find((usuario) => usuario.id === 3);
+      console.log(usuarioEncontrado);
+/*
 Ejercicio 12: Contador de Usuarios Activos - filter y length
 Utilizar filter para crear un nuevo array usuariosActivos que contenga solo los usuarios con activo: true.
 Usar la propiedad length para contar cuántos usuarios activos hay y muestra el resultado en la consola. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length 
 
+*/
+const usuariosActivo = usuarios.filter(usuario => usuario.activo === true);
+console.log("Cantidad de usuarios activos: ", usuariosActivo.length);
+/*
 
 Ejercicio 13: Actualización de Estado de Usuarios
 Usando un bucle forEach, cambiar la propiedad activo de cada usuario a false.
 Imprimir el array usuarios para verificar que todos los usuarios están inactivos.
 
+*/
+usuarios.forEach(usuario => usuario.activo = false);
+console.log(usuarios);
+/*
 
 Ejercicio 14: Formateo de Productos para Mostrar - map
 Usar el array catalogo.
 Utilizar map para crear un nuevo array productosFormato que contenga el nombre y precio de cada producto como un string en el formato "Producto: [nombre], Precio: $[precio]".
 Para esto podemos usar template strings `string text ${expression} string text`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals 
 Imprimir el array productosFormato en la consola.
-
-
-
-
+*/
+const ProductoFormato = catalogo.map(producto => `Producto: ${producto.nombre}, Precio: $${producto.precio}`);
+console.log(ProductoFormato);
+/*
 
 Ejercicio 15:
 Con los datos que tenemos, crear una interfaz "User" y aplicarla, para que el siguiente codigo compile sin errores:
+*/
 
-
-const users: unknown[] = [
+interface User {
+    name: string;
+    age: number;
+    occupation: string;
+}
+const users: User[] = [
     {
         name: 'Max Mustermann',
         age: 25,
@@ -248,24 +276,30 @@ const users: unknown[] = [
     }
 ];
 
-function logPerson(user: unknown) {
+function logUser(user: User) {
     console.log(` - ${user.name}, ${user.age}`);
 }
 
 console.log('Users:');
-users.forEach(logPerson);
+users.forEach(logUser);
 
 
 
-
+/*
 Ejercicio 16:
 Vamos a volver a usar la interfaz User del ejercicio anterior.
 Crear una nueva interfaz Admin segun los datos que tenemos.
 Corregir el type Person para que acepte dos tipos: User y la nueva interfaz. 
 Corregir la implementacion para aplicar el type Person para que el siguiente codigo compile sin errores. 
+*/
+interface Admin {
+    name: string;
+    age: number;
+    role: string;
+}
 
-type Person = User;
-const persons: User[] = [
+type Person = User | Admin;
+const persons: Person[] = [
     {
         name: 'Max Mustermann',
         age: 25,
@@ -288,8 +322,8 @@ const persons: User[] = [
     }
 ];
 
-function logPerson(user: User) {
-    console.log(` - ${user.name}, ${user.age}`);
+function logPerson(person: Person) {
+    console.log(` - ${person.name}, ${person.age}`);
 }
 
 persons.forEach(logPerson);
